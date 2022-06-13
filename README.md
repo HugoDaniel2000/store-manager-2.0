@@ -1,0 +1,1 @@
+# store-manager-2.0
