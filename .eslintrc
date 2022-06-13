@@ -1,6 +1,16 @@
 {
   "root": true,
+  "env": {
+    "browser": false,
+    "node": true,
+    "es2021": true
+  },
   "parser": "@typescript-eslint/parser",
+  "parserOptions": {
+    "ecmaVersion": 2019,
+    "sourceType": "module",
+    "project": "./tsconfig.json"
+  },
   "plugins": [
     "@typescript-eslint"
   ],
@@ -10,10 +20,19 @@
     "plugin:@typescript-eslint/eslint-recommended",
     "plugin:@typescript-eslint/recommended"
   ],
+  "rules": {
+    // "linebreak-style": ["error", "windows"],
+    "class-methods-use-this": "off",
+    "consistent-return": "off",
+    "no-console": "off",
+    "import/extensions": "off"
+  },
 
   "settings": {
     "import/resolver": {
-      "typescript": {}
+      "node": {
+        "extensions": [".js", ".jsx", ".ts", ".tsx"]
+      }
     }
   }
 }
