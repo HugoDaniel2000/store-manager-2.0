@@ -1,8 +1,8 @@
-import { Sales } from '../../types/sales';
+import { Sales, salesProduct } from '../../types/sales';
 
 export interface ISalesRepository {
   findAll(): Promise<Sales[]>;
   findById(id: number): Promise<Sales | null>;
-  create(newUser: object): Promise<Sales>;
+  create(newSales: object): Promise<salesProduct>;
   deleteById(id: number): Promise<void>
 }
