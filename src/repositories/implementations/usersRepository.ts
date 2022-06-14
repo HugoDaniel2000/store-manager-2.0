@@ -15,8 +15,9 @@ export default class UsersRepository implements IUsersRepository {
   }
 
   async findById(id: number): Promise<User | null> {
-    const products = await this.model.users.findUnique({ where: { id } });
-    return products;
+    const users = await this.model.users
+      .findUnique({ where: { id }, include: { Sales_Products: true } });
+    return users;
   }
 
   async create(newUser: User): Promise<User> {
