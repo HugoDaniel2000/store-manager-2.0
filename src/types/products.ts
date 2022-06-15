@@ -15,3 +15,10 @@ export type productUpdate = {
   name?: string,
   quantity?: number,
 }
+
+export type productUpdateParam = {
+  id: number,
+  name?: string,
+  quantity?: number,
+  role?: string,
+}
