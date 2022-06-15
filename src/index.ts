@@ -30,7 +30,7 @@ class App {
   private routes() {
     this.app.use(express.json());
     this.app.use('/login', loginRouter);
-    this.app.use('/register', usersRouter);
+    this.app.use('/user', usersRouter);
 
     this.app.use(error);
   }
