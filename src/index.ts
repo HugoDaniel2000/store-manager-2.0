@@ -1,6 +1,9 @@
 import express from 'express';
+
 import loginRouter from './routes/loginRouter';
 import usersRouter from './routes/usersRoutes';
+import productsRouter from './routes/productsRoutes';
+
 import error from './middlewares/errorMiddleware';
 
 class App {
@@ -10,27 +13,15 @@ class App {
   constructor() {
     // ...
     this.app = express();
-    this.config();
     this.routes();
     this.error();
-  }
-
-  private config():void {
-    // const accessControl: express.RequestHandler = (_req, res, next) => {
-    //   res.header('Access-Control-Allow-Origin', '*');
-    //   res.header('Access-Control-Allow-Methods', 'GET,POST,DELETE,OPTIONS,PUT,PATCH');
-    //   res.header('Access-Control-Allow-Headers', '*');
-    //   next();
-    // };
-
-    this.app.use(express.json());
-    // ...
   }
 
   private routes() {
     this.app.use(express.json());
     this.app.use('/login', loginRouter);
     this.app.use('/user', usersRouter);
+    this.app.use('/products', productsRouter);
 
     this.app.use(error);
   }
