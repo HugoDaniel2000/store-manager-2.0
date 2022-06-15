@@ -4,7 +4,7 @@ export type User = {
   last_name: string,
   email: string,
   role: string,
-  password: string,
+  password?: string
 }
 
 export type userUpdateBody = {
@@ -42,4 +42,9 @@ export type userUpdate = {
 export type login = {
   email: string,
   password: string
+}
+
+export type userDelete = {
+  id: number,
+  user: userCreated
 }

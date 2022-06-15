@@ -13,7 +13,7 @@ export default class UserUseCase {
     this.userRepository = new UsersRepository();
   }
 
-  async findById(id: number): Promise<User> {
+  async findUserById(id: number): Promise<User> {
     const user = await this.userRepository.findById(id) as User;
     if (!user) {
       throw new errors.NotFoundError('User not found');

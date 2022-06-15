@@ -10,10 +10,10 @@ export default class UserController {
     this.userUseCase = new UserUseCase();
   }
 
-  async findById(req: Request, res: Response, next: NextFunction) {
+  async findUserById(req: Request, res: Response, next: NextFunction) {
     const { id } = req.params;
     try {
-      const result = await this.userUseCase.findById(Number(id));
+      const result = await this.userUseCase.findUserById(Number(id));
       return res.status(StatusCodes.OK).json(result);
     } catch (error) {
       next(error);

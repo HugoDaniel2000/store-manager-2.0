@@ -20,7 +20,7 @@ router.route('/')
 
 router.route('/:id')
   .get((req: Request, res: Response, next: NextFunction) => {
-    userController.findById(req, res, next);
+    userController.findUserById(req, res, next);
   })
   .put(
     UserUpdateMiddleware.validateUser,
