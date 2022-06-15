@@ -1,9 +1,8 @@
-import { Request, Response } from 'express';
+import { NextFunction, Request, Response } from 'express';
 import { DefinedHttpError } from 'restify-errors';
 
-const error = (err: DefinedHttpError, req: Request, res: Response) => {
-  console.log(err);
-
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+const error = (err: DefinedHttpError, req: Request, res: Response, _next: NextFunction) => {
   if (err.statusCode) {
     return res.status(err.statusCode).json({ message: err.message });
   }
