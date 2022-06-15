@@ -4,6 +4,12 @@ export type product = {
   quantity: number,
 }
 
+export type NewProduct = {
+  name: string,
+  quantity: number,
+  role?: string,
+}
+
 export type productUpdate = {
   id: number,
   name?: string,
