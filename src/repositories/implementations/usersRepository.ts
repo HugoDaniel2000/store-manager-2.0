@@ -1,5 +1,5 @@
 import { PrismaClient } from '@prisma/client';
-import { User, userUpdate } from '../../types/users';
+import { User, userCreate, userUpdate } from '../../types/users';
 import { IUsersRepository } from '../interfaces/IUsersRepository';
 
 export default class UsersRepository implements IUsersRepository {
@@ -20,9 +20,9 @@ export default class UsersRepository implements IUsersRepository {
     return users;
   }
 
-  async create(newUser: User): Promise<User> {
-    const usersCreated = await this.model.users.create({ data: newUser });
-    return usersCreated;
+  async create(newUser: userCreate): Promise<User> {
+    const userCreated = await this.model.users.create({ data: newUser });
+    return userCreated;
   }
 
   async update(userAtt: userUpdate): Promise<User> {
