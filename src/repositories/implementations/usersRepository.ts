@@ -25,10 +25,10 @@ export default class UsersRepository implements IUsersRepository {
     return userCreated;
   }
 
-  async update(userAtt: userUpdate): Promise<User> {
+  async update(user: userUpdate): Promise<User> {
     const userUpdated = await this.model.users.update({
-      where: { id: userAtt.id },
-      data: userAtt,
+      where: { id: user.id },
+      data: user,
     });
     return userUpdated;
   }
