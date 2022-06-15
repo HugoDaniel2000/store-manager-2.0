@@ -42,10 +42,30 @@ describe('Products', async () => {
       });
       it('return status 404', async () => {
         chaiHttpResponse = await chai
-          .request(app).get('/products/1')
+          .request(app)
+          .get('/products/1')
           .send();
         expect(chaiHttpResponse.status).to.be.eql(404);
         expect(chaiHttpResponse.body).to.be.eql({ message: 'Product not found' });
+      });
+    });
+  });
+
+  describe('Find all products', async () => {
+    describe('Find all products success', async () => {
+      beforeEach(async () => {
+        repositoryStub = sinon.stub(ProductsRepository.prototype, 'findAll').resolves(product as unknown as Products[]);
+      });
+      afterEach(() => {
+        repositoryStub.restore();
+      });
+      it('return status 200', async () => {
+        chaiHttpResponse = await chai
+          .request(app)
+          .get('/products')
+          .send();
+        expect(chaiHttpResponse.status).to.be.eql(200);
+        expect(chaiHttpResponse.body).to.be.eql(product);
       });
     });
   });
