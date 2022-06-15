@@ -9,12 +9,27 @@ export default class ProductsController {
     this.productsUseCase = new ProductsUseCase();
   }
 
-  async createProducts(req: Request, res: Response, next: NextFunction) {
+  async createProduct(req: Request, res: Response, next: NextFunction) {
     try {
       const roleUser = req.body.user.role;
       const { name, quantity } = req.body;
-      const result = await this.productsUseCase.createProducts({ name, quantity, role: roleUser });
+      const result = await this.productsUseCase.createProduct({ name, quantity, role: roleUser });
       return res.status(StatusCodes.CREATED).json(result);
+    } catch (error) {
+      next(error);
+    }
+  }
+
+  async updateProduct(req: Request, res: Response, next: NextFunction) {
+    try {
+      const { id } = req.params;
+      const roleUser = req.body.user.role;
+      const { name, quantity } = req.body;
+      const result = await this.productsUseCase
+        .updateProduct({
+          id: Number(id), name, quantity, role: roleUser,
+        });
+      return res.status(StatusCodes.OK).json(result);
     } catch (error) {
       next(error);
     }
