@@ -12,7 +12,7 @@ chai.use(chaiHttp);
 
 const { expect } = chai;
 
-describe('User', async () => {
+describe('Find user', async () => {
   let chaiHttpResponse: Response;
   let repositoryStub: sinon.SinonStub;
 
@@ -33,7 +33,7 @@ describe('User', async () => {
       });
     });
 
-    describe('Find by id user success', async () => {
+    describe('Find by id user falid', async () => {
       beforeEach(async () => {
         repositoryStub = sinon.stub(UsersRepository.prototype, 'findById').resolves(null);
       });
