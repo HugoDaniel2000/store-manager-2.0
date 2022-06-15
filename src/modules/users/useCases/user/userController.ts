@@ -11,8 +11,8 @@ export default class UserController {
   }
 
   async findUserById(req: Request, res: Response, next: NextFunction) {
-    const { id } = req.params;
     try {
+      const { id } = req.params;
       const result = await this.userUseCase.findUserById(Number(id));
       return res.status(StatusCodes.OK).json(result);
     } catch (error) {
@@ -21,8 +21,8 @@ export default class UserController {
   }
 
   async createUser(req: Request, res: Response, next: NextFunction) {
-    const newUser: userCreate = req.body;
     try {
+      const newUser: userCreate = req.body;
       const result = await this.userUseCase.createUser(newUser);
       return res.status(StatusCodes.CREATED).json(result);
     } catch (error) {
@@ -31,10 +31,9 @@ export default class UserController {
   }
 
   async updateUser(req: Request, res: Response, next: NextFunction) {
-    const { id } = req.params;
-
-    const userUpdate = req.body;
     try {
+      const { id } = req.params;
+      const userUpdate = req.body;
       const result = await this.userUseCase.updateUser({ id: Number(id), ...userUpdate });
       return res.status(StatusCodes.OK).json(result);
     } catch (error) {
@@ -43,10 +42,9 @@ export default class UserController {
   }
 
   async deleteUser(req: Request, res: Response, next: NextFunction) {
-    const { id } = req.params;
-
-    const { user } = req.body;
     try {
+      const { id } = req.params;
+      const { user } = req.body;
       const result = await this.userUseCase.deleteUser({ id: Number(id), user });
       return res.status(StatusCodes.OK).json(result);
     } catch (error) {

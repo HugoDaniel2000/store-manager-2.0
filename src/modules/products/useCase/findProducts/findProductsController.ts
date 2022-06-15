@@ -19,8 +19,8 @@ export default class UserController {
   }
 
   async findProductsById(req: Request, res: Response, next: NextFunction) {
-    const { id } = req.params;
     try {
+      const { id } = req.params;
       const result = await this.findProductsUseCase.findProductsById(Number(id));
       return res.status(StatusCodes.OK).json(result);
     } catch (error) {

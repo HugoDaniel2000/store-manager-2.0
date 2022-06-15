@@ -10,8 +10,8 @@ export default class LoginUserController {
   }
 
   async login(req: Request, res: Response, next: NextFunction) {
-    const { email, password } = req.body;
     try {
+      const { email, password } = req.body;
       const result = await this.loginUserUseCase.login({ email, password });
       return res.status(StatusCodes.OK).json(result);
     } catch (error) {

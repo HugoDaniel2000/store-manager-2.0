@@ -38,7 +38,7 @@ const tokenPayloadAdmin = {
   id: 2,
   firstName: 'Hugo Daniel',
   lastName: 'Caxias das Virgens',
-  role: 'customer',
+  role: 'admin',
   iat: 1655277002,
   exp: 1655449802,
 };
