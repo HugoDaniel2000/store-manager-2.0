@@ -7,7 +7,7 @@
     "start": "tsc && node out/index.js",
     "dev": "nodemon --watch 'src/' --exec 'ts-node src/server.ts' -e ts",
     "test:coverage": "nyc npm run test",
-    "test": "mocha -r ts-node/register ./src/tests/*$NAME*.{test,spec}.ts -t 10000 --exit",
+    "test": "mocha -r ts-node/register ./src/modules/*$NAME*/tests/*$NAME*.{test,spec}.ts -t 10000 --exit",
     "lint": "eslint **/*.ts"
   },
   "repository": {
