@@ -17,5 +17,24 @@ const userCreated: userCreated = {
   email: 'hugodaniel@gmail.com',
 };
 
+const tokenPayload = {
+  id: 1,
+  firstName: 'Hugo Daniel',
+  lastName: 'Caxias das Virgens',
+  role: 'customer',
+  iat: 1655277002,
+  exp: 1655449802,
+};
+const tokenPayloadAdmin = {
+  id: 2,
+  firstName: 'Hugo Daniel',
+  lastName: 'Caxias das Virgens',
+  role: 'customer',
+  iat: 1655277002,
+  exp: 1655449802,
+};
+
 // eslint-disable-next-line import/prefer-default-export
-export { user, userCreated };
+export {
+  user, userCreated, tokenPayload, tokenPayloadAdmin,
+};
