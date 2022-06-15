@@ -10,6 +10,16 @@ export default class UserController {
     this.userUseCase = new UserUseCase();
   }
 
+  async findById(req: Request, res: Response, next: NextFunction) {
+    const { id } = req.params;
+    try {
+      const result = await this.userUseCase.findById(Number(id));
+      return res.status(StatusCodes.OK).json(result);
+    } catch (error) {
+      next(error);
+    }
+  }
+
   async createUser(req: Request, res: Response, next: NextFunction) {
     const newUser: userCreate = req.body;
     try {
@@ -26,6 +36,18 @@ export default class UserController {
     const userUpdate = req.body;
     try {
       const result = await this.userUseCase.updateUser({ id: Number(id), ...userUpdate });
+      return res.status(StatusCodes.OK).json(result);
+    } catch (error) {
+      next(error);
+    }
+  }
+
+  async deleteUser(req: Request, res: Response, next: NextFunction) {
+    const { id } = req.params;
+
+    const { user } = req.body;
+    try {
+      const result = await this.userUseCase.deleteUser({ id: Number(id), user });
       return res.status(StatusCodes.OK).json(result);
     } catch (error) {
       next(error);

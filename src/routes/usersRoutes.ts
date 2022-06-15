@@ -18,12 +18,22 @@ router.route('/')
     },
   );
 
-router.route('/:id').put(
-  UserUpdateMiddleware.validateUser,
-  AuthMiddleware.validToken,
-  (req: Request, res: Response, next: NextFunction) => {
-    userController.updateUser(req, res, next);
-  },
-);
+router.route('/:id')
+  .get((req: Request, res: Response, next: NextFunction) => {
+    userController.findById(req, res, next);
+  })
+  .put(
+    UserUpdateMiddleware.validateUser,
+    AuthMiddleware.validToken,
+    (req: Request, res: Response, next: NextFunction) => {
+      userController.updateUser(req, res, next);
+    },
+  )
+  .delete(
+    AuthMiddleware.validToken,
+    (req: Request, res: Response, next: NextFunction) => {
+      userController.deleteUser(req, res, next);
+    },
+  );
 
 export default router;

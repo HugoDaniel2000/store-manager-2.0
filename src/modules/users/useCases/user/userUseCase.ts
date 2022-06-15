@@ -1,13 +1,25 @@
 import errors from 'restify-errors';
 import Bcrypt from '../../../../helpers/bcrypt';
 import UsersRepository from '../../../../repositories/implementations/usersRepository';
-import { userCreate, userCreated, userUpdate } from '../../../../types/users';
+import {
+  User,
+  userCreate, userCreated, userDelete, userUpdate,
+} from '../../../../types/users';
 
 export default class UserUseCase {
   private userRepository: UsersRepository;
 
   constructor() {
     this.userRepository = new UsersRepository();
+  }
+
+  async findById(id: number): Promise<User> {
+    const user = await this.userRepository.findById(id) as User;
+    if (!user) {
+      throw new errors.NotFoundError('User not found');
+    }
+    delete user.password;
+    return user;
   }
 
   async createUser(newUser: userCreate): Promise<userCreated> {
@@ -42,5 +54,13 @@ export default class UserUseCase {
     return {
       id, lastName, firstName, email, role,
     };
+  }
+
+  async deleteUser(user: userDelete): Promise<object> {
+    if (user.user?.id !== user.id && user.user?.role !== 'admin') {
+      throw new errors.UnauthorizedError('You do not have permission to delete this user');
+    }
+    await this.userRepository.deleteById(user.id);
+    return { message: 'User successfully deleted' };
   }
 }
