@@ -2,7 +2,7 @@ import { NextFunction, Request, Response } from 'express';
 import errors from 'restify-errors';
 import validator from 'validator';
 
-export default class UserMiddleware {
+export default class UserCreateMiddleware {
   public static validateEmail = (req: Request, res: Response, next: NextFunction) => {
     const { email } = req.body;
     if (!email || typeof email !== 'string') {
@@ -20,7 +20,7 @@ export default class UserMiddleware {
       throw new errors.BadRequestError('All fields must be filled');
     }
     if (password.length < 6) {
-      throw new errors.BadRequestError('Password must be longer than six characters');
+      throw new errors.BadRequestError('Password must be at least 6 characters long');
     }
     next();
   };
@@ -31,7 +31,7 @@ export default class UserMiddleware {
       throw new errors.BadRequestError('All fields must be filled');
     }
     if (firstName.length < 3) {
-      throw new errors.BadRequestError('First Name must be longer than three characters');
+      throw new errors.BadRequestError('First Name must be at least 3 characters long');
     }
     next();
   };
@@ -42,15 +42,15 @@ export default class UserMiddleware {
       throw new errors.BadRequestError('All fields must be filled');
     }
     if (lastName.length < 3) {
-      throw new errors.BadRequestError('Last Name must be longer than three characters');
+      throw new errors.BadRequestError('Last Name must be at least 3 characters long');
     }
     next();
   };
 
   public static validateUser = [
-    UserMiddleware.validateEmail,
-    UserMiddleware.validateLastName,
-    UserMiddleware.validatePassword,
-    UserMiddleware.validateFirstName,
+    UserCreateMiddleware.validateEmail,
+    UserCreateMiddleware.validateLastName,
+    UserCreateMiddleware.validatePassword,
+    UserCreateMiddleware.validateFirstName,
   ];
 }

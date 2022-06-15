@@ -2,7 +2,8 @@ import {
   NextFunction, Response, Request, Router,
 } from 'express';
 import AuthMiddleware from '../middlewares/authMiddleware';
-import UserMiddleware from '../middlewares/userMiddleware';
+import UserCreateMiddleware from '../middlewares/userCreateMiddleware';
+import UserUpdateMiddleware from '../middlewares/userUpdateMiddleware';
 
 import UserController from '../modules/users/useCases/user/userController';
 
@@ -11,15 +12,16 @@ const router = Router();
 
 router.route('/')
   .post(
-    UserMiddleware.validateUser,
+    UserCreateMiddleware.validateUser,
     (req: Request, res: Response, next: NextFunction) => {
       userController.createUser(req, res, next);
     },
   );
 
 router.route('/:id').put(
+  UserUpdateMiddleware.validateUser,
   AuthMiddleware.validToken,
-  (req, res, next) => {
+  (req: Request, res: Response, next: NextFunction) => {
     userController.updateUser(req, res, next);
   },
 );

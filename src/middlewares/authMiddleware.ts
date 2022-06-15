@@ -12,7 +12,7 @@ export default class AuthMiddleware {
     if (!payload) {
       throw new errors.UnauthorizedError('Invalid token');
     }
-    req.query.user = payload;
+    req.body.user = payload;
     next();
   };
 }
