@@ -9,6 +9,11 @@ export default class FindProductsUseCase {
     this.productsRepository = new ProductsRepository();
   }
 
+  async findAllProducts(): Promise<Products[]> {
+    const products = await this.productsRepository.findAll();
+    return products;
+  }
+
   async findProductsById(id: number): Promise<Products> {
     const product = await this.productsRepository.findById(id) as Products;
     if (!product) {

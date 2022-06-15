@@ -9,6 +9,15 @@ export default class UserController {
     this.findProductsUseCase = new FindProductsUseCase();
   }
 
+  async findAllProducts(req: Request, res: Response, next: NextFunction) {
+    try {
+      const result = await this.findProductsUseCase.findAllProducts();
+      return res.status(StatusCodes.OK).json(result);
+    } catch (error) {
+      next(error);
+    }
+  }
+
   async findProductsById(req: Request, res: Response, next: NextFunction) {
     const { id } = req.params;
     try {
