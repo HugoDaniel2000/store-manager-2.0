@@ -18,13 +18,19 @@ router.route('/')
   .post(
     AuthMiddleware.validToken,
     (req: Request, res: Response, next: NextFunction) => {
-      productsController.createProducts(req, res, next);
+      productsController.createProduct(req, res, next);
     },
   );
 
 router.route('/:id')
   .get((req: Request, res: Response, next: NextFunction) => {
     findProductsController.findProductsById(req, res, next);
-  });
+  })
+  .put(
+    AuthMiddleware.validToken,
+    (req: Request, res: Response, next: NextFunction) => {
+      productsController.updateProduct(req, res, next);
+    },
+  );
 
 export default router;

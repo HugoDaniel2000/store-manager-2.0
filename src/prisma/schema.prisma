@@ -22,7 +22,7 @@ model Users {
 
 model Products {
   id             Int              @id @default(autoincrement())
-  name           String
+  name           String           @unique
   quantity       Int
   Sales_Products Sales_Products[]
 }
