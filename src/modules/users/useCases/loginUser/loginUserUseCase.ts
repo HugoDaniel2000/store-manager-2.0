@@ -18,14 +18,16 @@ export default class LoginUserUseCase {
     if (!user || !passwordValidate) {
       throw new errors.UnauthorizedError('Incorrect email or password');
     }
-    const { first_name: firstName, last_name: lastName, id } = user;
+    const {
+      first_name: firstName, last_name: lastName, id, role,
+    } = user;
     const token = Token.generate({
-      id, firstName, lastName,
+      id, firstName, lastName, role,
     });
 
     return {
       user: {
-        id, firstName, lastName, email,
+        id, firstName, lastName, email, role,
       },
       token,
     };

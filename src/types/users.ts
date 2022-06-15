@@ -3,14 +3,15 @@ export type User = {
   first_name: string,
   last_name: string,
   email: string,
+  role: string,
   password: string,
 }
 
-export type userUpdate = {
-  id: number
+export type userUpdateBody = {
   first_name?: string,
   last_name?: string,
   email?: string,
+  role?: string,
   password?: string,
 }
 
@@ -18,6 +19,7 @@ export type userCreate = {
   first_name: string,
   last_name: string,
   email: string,
+  role?: string,
   password: string
 }
 
@@ -25,7 +27,15 @@ export type userCreated = {
   id: number,
   firstName: string,
   lastName: string,
+  role: string
   email: string,
+}
+export type userUpdate = {
+  id: number
+  first_name?: string,
+  last_name?: string,
+  email?: string,
+  password?: string,
 }
 
 export type login = {
