@@ -1,4 +1,5 @@
-import { Sales, salesProduct } from '../../types/sales';
+import { Sales } from '@prisma/client';
+import { salesProduct } from '../../types/sales';
 
 export interface ISalesRepository {
   findAll(): Promise<Sales[]>;

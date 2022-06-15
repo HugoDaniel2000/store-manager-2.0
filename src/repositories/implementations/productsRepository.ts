@@ -1,4 +1,4 @@
-import { PrismaClient } from '@prisma/client';
+import { PrismaClient, Products } from '@prisma/client';
 import { product, productUpdate } from '../../types/products';
 import { IProductsRepository } from '../interfaces/IProductsRepository';
 
@@ -9,22 +9,22 @@ export default class ProductsRepository implements IProductsRepository {
     this.model = new PrismaClient();
   }
 
-  async findAll(): Promise<product[]> {
+  async findAll(): Promise<Products[]> {
     const products = await this.model.products.findMany();
     return products;
   }
 
-  async findById(id: number): Promise<product | null> {
+  async findById(id: number): Promise<Products | null> {
     const products = await this.model.products.findUnique({ where: { id } });
     return products;
   }
 
-  async create(newProduct: product): Promise<product> {
+  async create(newProduct: product): Promise<Products> {
     const productCreated = await this.model.products.create({ data: newProduct });
     return productCreated;
   }
 
-  async update(productAtt: productUpdate): Promise<product> {
+  async update(productAtt: productUpdate): Promise<Products> {
     const productUpdated = await this.model.products.update({
       where: { id: productAtt.id },
       data: productAtt,

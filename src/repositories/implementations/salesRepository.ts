@@ -1,5 +1,5 @@
-import { PrismaClient } from '@prisma/client';
-import { newSales, Sales, salesProduct } from '../../types/sales';
+import { PrismaClient, Sales } from '@prisma/client';
+import { newSales, salesProduct } from '../../types/sales';
 import { ISalesRepository } from '../interfaces/ISalesRepository';
 
 export default class SalesRepository implements ISalesRepository {
