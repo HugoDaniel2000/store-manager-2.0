@@ -26,15 +26,16 @@ export default class UserUseCase {
     };
   }
 
-  async updateUser(user: userUpdate, loggedUser: userCreated): Promise<userCreated> {
+  async updateUser(user: userUpdate) : Promise<userCreated> {
     const userAtt = user;
-    if (loggedUser.id !== user.id && loggedUser.role !== 'admin') {
+    if (user.user?.id !== user.id && user.user?.role !== 'admin') {
       throw new errors.UnauthorizedError('You do not have permission to update this user');
     }
     if (userAtt.password) {
       const passwordEncrypted = await Bcrypt.encrypt(userAtt.password);
       userAtt.password = passwordEncrypted;
     }
+    delete userAtt.user;
     const {
       id, last_name: lastName, first_name: firstName, email, role,
     } = await this.userRepository.update(userAtt);
