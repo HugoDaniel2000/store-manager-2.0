@@ -9,6 +9,11 @@ export default class ProductsRepository implements IProductsRepository {
     this.model = new PrismaClient();
   }
 
+  async findByName(name: string): Promise<Products | null> {
+    const products = await this.model.products.findUnique({ where: { name } });
+    return products;
+  }
+
   async findAll(): Promise<Products[]> {
     const products = await this.model.products.findMany();
     return products;
