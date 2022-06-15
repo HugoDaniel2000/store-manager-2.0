@@ -3,11 +3,11 @@ import chai from 'chai';
 
 import chaiHttp = require('chai-http');
 import { Response } from 'superagent';
-import { app } from '../index';
-import UsersRepository from '../repositories/implementations/usersRepository';
+import { Users } from '@prisma/client';
+import { app } from '../../../index';
+import UsersRepository from '../../../repositories/implementations/usersRepository';
 import { tokenPayload, user, userCreated } from './mocks/usersMock';
-import { User } from '../types/users';
-import Token from '../helpers/jwt.auth';
+import Token from '../../../helpers/jwt.auth';
 
 chai.use(chaiHttp);
 
@@ -19,7 +19,7 @@ describe('Update user', async () => {
   let tokenStub: sinon.SinonStub;
   describe('Update user success', async () => {
     beforeEach(async () => {
-      repositoryStub = sinon.stub(UsersRepository.prototype, 'update').resolves(user as User);
+      repositoryStub = sinon.stub(UsersRepository.prototype, 'update').resolves(user as Users);
       tokenStub = sinon.stub(Token, 'validate').returns(tokenPayload);
     });
     afterEach(() => {
@@ -41,7 +41,7 @@ describe('Update user', async () => {
   });
   describe('Update user falid', async () => {
     beforeEach(async () => {
-      repositoryStub = sinon.stub(UsersRepository.prototype, 'update').resolves(user as User);
+      repositoryStub = sinon.stub(UsersRepository.prototype, 'update').resolves(user as Users);
       tokenStub = sinon.stub(Token, 'validate').returns(tokenPayload);
     });
     afterEach(() => {
@@ -73,7 +73,7 @@ describe('Update user', async () => {
       expect(chaiHttpResponse.body).to.be.eql({ message: 'Email must have a valid format' });
     });
 
-    it('Email invalid format', async () => {
+    it('Token not found', async () => {
       chaiHttpResponse = await chai
         .request(app)
         .put('/user/2')

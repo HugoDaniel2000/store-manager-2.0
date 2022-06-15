@@ -3,11 +3,11 @@ import chai from 'chai';
 
 import chaiHttp = require('chai-http');
 import { Response } from 'superagent';
-import { app } from '../index';
-import UsersRepository from '../repositories/implementations/usersRepository';
+import { Users } from '@prisma/client';
+import { app } from '../../../index';
+import UsersRepository from '../../../repositories/implementations/usersRepository';
 import { user } from './mocks/usersMock';
-import { User } from '../types/users';
-import Bcrypt from '../helpers/bcrypt';
+import Bcrypt from '../../../helpers/bcrypt';
 
 chai.use(chaiHttp);
 
@@ -18,7 +18,7 @@ describe('rota login/', async () => {
   let repositoryStub: sinon.SinonStub;
   describe('login success', async () => {
     beforeEach(async () => {
-      repositoryStub = sinon.stub(UsersRepository.prototype, 'findByEmail').resolves(user as User);
+      repositoryStub = sinon.stub(UsersRepository.prototype, 'findByEmail').resolves(user as Users);
       sinon.stub(Bcrypt, 'validate').resolves(true);
     });
     afterEach(() => {
@@ -47,7 +47,7 @@ describe('rota login/', async () => {
 
   describe('login falid', async () => {
     beforeEach(async () => {
-      repositoryStub = sinon.stub(UsersRepository.prototype, 'findByEmail').resolves(user as User);
+      repositoryStub = sinon.stub(UsersRepository.prototype, 'findByEmail').resolves(user as Users);
       sinon.stub(Bcrypt, 'validate').resolves(false);
     });
     afterEach(() => {

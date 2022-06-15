@@ -3,10 +3,10 @@ import chai from 'chai';
 
 import chaiHttp = require('chai-http');
 import { Response } from 'superagent';
-import { app } from '../index';
-import UsersRepository from '../repositories/implementations/usersRepository';
+import { Users } from '@prisma/client';
+import { app } from '../../../index';
+import UsersRepository from '../../../repositories/implementations/usersRepository';
 import { user, userCreated } from './mocks/usersMock';
-import { User } from '../types/users';
 
 chai.use(chaiHttp);
 
@@ -18,7 +18,7 @@ describe('Create user', async () => {
   let repositoryStub2: sinon.SinonStub;
   describe('Create user success', async () => {
     beforeEach(async () => {
-      repositoryStub = sinon.stub(UsersRepository.prototype, 'create').resolves(user as User);
+      repositoryStub = sinon.stub(UsersRepository.prototype, 'create').resolves(user as Users);
       repositoryStub2 = sinon.stub(UsersRepository.prototype, 'findByEmail').resolves(null);
     });
     afterEach(() => {
@@ -41,8 +41,8 @@ describe('Create user', async () => {
 
   describe('Create user falid', async () => {
     beforeEach(async () => {
-      repositoryStub = sinon.stub(UsersRepository.prototype, 'create').resolves(user as User);
-      repositoryStub2 = sinon.stub(UsersRepository.prototype, 'findByEmail').resolves(user);
+      repositoryStub = sinon.stub(UsersRepository.prototype, 'create').resolves(user as Users);
+      repositoryStub2 = sinon.stub(UsersRepository.prototype, 'findByEmail').resolves(user as Users);
     });
     afterEach(() => {
       repositoryStub.restore();
