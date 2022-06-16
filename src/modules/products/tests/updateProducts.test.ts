@@ -100,7 +100,6 @@ describe('Products', async () => {
           .send({
             name: '',
           });
-        console.log(chaiHttpResponse.body);
         expect(chaiHttpResponse.status).to.be.eql(400);
         expect(chaiHttpResponse.body).to.be.eql({ message: 'The name field must be filled' });
       });
@@ -113,7 +112,6 @@ describe('Products', async () => {
           .send({
             quantity: -1,
           });
-        console.log(chaiHttpResponse.body);
         expect(chaiHttpResponse.status).to.be.eql(400);
         expect(chaiHttpResponse.body).to.be.eql({ message: 'Quantity must be greater than or equal to 0' });
       });
