@@ -39,8 +39,8 @@ export default class ProductMiddleware {
       throw new errors.BadRequestError('The name field must be filled');
     }
 
-    if (typeof quantity !== 'number') {
-      throw new errors.BadRequestError('The name field must be of type number');
+    if (quantity && typeof quantity !== 'number') {
+      throw new errors.BadRequestError('The quantity field must be of type number');
     }
 
     if (quantity < 0) {
