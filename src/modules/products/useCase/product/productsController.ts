@@ -22,9 +22,8 @@ export default class ProductsController {
   async updateProduct(req: Request, res: Response, next: NextFunction) {
     try {
       const { id } = req.params;
-      const { name, quantity } = req.body;
-      const result = await this.productsUseCase
-        .updateProduct({ id: Number(id), name, quantity });
+      const product = req.body;
+      const result = await this.productsUseCase.updateProduct({ id: Number(id), ...product });
       return res.status(StatusCodes.OK).json(result);
     } catch (error) {
       next(error);

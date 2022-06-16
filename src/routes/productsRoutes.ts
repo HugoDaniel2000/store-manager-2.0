@@ -2,6 +2,7 @@ import {
   NextFunction, Response, Request, Router,
 } from 'express';
 import AuthMiddleware from '../middlewares/authMiddleware';
+import ProductMiddleware from '../middlewares/productsMiddlewares';
 
 import FindProductsController from '../modules/products/useCase/findProducts/findProductsController';
 import ProductsController from '../modules/products/useCase/product/productsController';
@@ -18,6 +19,7 @@ router.route('/')
   .post(
     AuthMiddleware.validToken,
     AuthMiddleware.validRoleProduct,
+    ProductMiddleware.validateCreateProducts,
     (req: Request, res: Response, next: NextFunction) => {
       productsController.createProduct(req, res, next);
     },
@@ -30,6 +32,7 @@ router.route('/:id')
   .put(
     AuthMiddleware.validToken,
     AuthMiddleware.validRoleProduct,
+    ProductMiddleware.validateUpdateProducts,
     (req: Request, res: Response, next: NextFunction) => {
       productsController.updateProduct(req, res, next);
     },
