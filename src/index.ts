@@ -3,6 +3,7 @@ import express from 'express';
 import loginRouter from './routes/loginRouter';
 import usersRouter from './routes/usersRoutes';
 import productsRouter from './routes/productsRoutes';
+import salesRouter from './routes/salesRoutes';
 
 import error from './middlewares/errorMiddleware';
 
@@ -22,6 +23,7 @@ class App {
     this.app.use('/login', loginRouter);
     this.app.use('/user', usersRouter);
     this.app.use('/products', productsRouter);
+    this.app.use('/sales', salesRouter);
 
     this.app.use(error);
   }
