@@ -1,5 +1,5 @@
 import { PrismaClient, Sales } from '@prisma/client';
-import { newSales, salesProduct } from '../../types/sales';
+import { newSales, salesUpdate } from '../../types/sales';
 import { ISalesRepository } from '../interfaces/ISalesRepository';
 
 export default class SalesRepository implements ISalesRepository {
@@ -22,15 +22,26 @@ export default class SalesRepository implements ISalesRepository {
     return sale;
   }
 
-  async create(sales: newSales): Promise<salesProduct> {
+  async create(sales: newSales[]): Promise<Sales> {
     const date = new Date();
     const sale = await this.model.sales.create({ data: { date } });
-    const saleProduct = await this.model.sales_Products.create({
-      data: {
-        sale_id: sale.id, ...sales,
-      },
+    sales.forEach((newSale) => {
+      this.model.sales_Products.create({
+        data: {
+          sale_id: sale.id, ...newSale,
+        },
+      });
     });
-    return saleProduct;
+
+    const saleCreated = await this.findById(sale.id) as Sales;
+    return saleCreated;
+  }
+
+  async update(saleUpdt: salesUpdate): Promise<void> {
+    await this.model.sales_Products.update({
+      where: { id: saleUpdt.id },
+      data: saleUpdt,
+    });
   }
 
   async deleteById(id: number): Promise<void> {
