@@ -6,7 +6,7 @@ import { Response } from 'superagent';
 import { Products } from '@prisma/client';
 import { app } from '../../../index';
 import ProductsRepository from '../../../repositories/implementations/productsRepository';
-import { product } from './mocks/productsMocks';
+import { createProducts, product, products } from './mocks/productsMocks';
 import Token from '../../../helpers/jwt.auth';
 import { tokenPayload, tokenPayloadAdmin } from '../../users/tests/mocks/usersMock';
 
@@ -23,7 +23,7 @@ describe('Products', async () => {
   describe('Create products', async () => {
     describe('create products success', async () => {
       beforeEach(async () => {
-        repositoryStub = sinon.stub(ProductsRepository.prototype, 'create').resolves(product as Products);
+        repositoryStub = sinon.stub(ProductsRepository.prototype, 'create').resolves(products[0] as Products);
         repositoryStub2 = sinon.stub(ProductsRepository.prototype, 'findByName').resolves(null);
         tokenStub = sinon.stub(Token, 'validate').returns(tokenPayloadAdmin);
       });
@@ -38,11 +38,10 @@ describe('Products', async () => {
           .post('/products')
           .set('authorization', '123.456.789')
           .send({
-            name: 'Vapor Max',
-            quantity: 10,
+            products: [createProducts[0]],
           });
         expect(chaiHttpResponse.status).to.be.eql(201);
-        expect(chaiHttpResponse.body).to.be.eql(product);
+        expect(chaiHttpResponse.body).to.be.eql([products[0]]);
       });
     });
 
@@ -61,8 +60,10 @@ describe('Products', async () => {
           .post('/products')
           .set('authorization', '123.456.789')
           .send({
-            name: 'Vapor Max',
-            quantity: 10,
+            products: [{
+              name: 'Vapor Max',
+              quantity: 10,
+            }],
           });
 
         expect(chaiHttpResponse.status).to.be.eql(401);
@@ -87,8 +88,10 @@ describe('Products', async () => {
           .post('/products')
           .set('authorization', '123.456.789')
           .send({
-            name: 'Vapor Max',
-            quantity: 10,
+            products: [{
+              name: 'Vapor Max',
+              quantity: 10,
+            }],
           });
 
         expect(chaiHttpResponse.status).to.be.eql(409);
