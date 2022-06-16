@@ -67,7 +67,7 @@ describe('Products', async () => {
           });
 
         expect(chaiHttpResponse.status).to.be.eql(401);
-        expect(chaiHttpResponse.body).to.be.eql({ message: 'You do not have permission to create products' });
+        expect(chaiHttpResponse.body).to.be.eql({ message: 'You do not have permission to create, update or delete products' });
       });
     });
 

@@ -52,7 +52,7 @@ describe('Delete user', async () => {
         .set('authorization', '123.456.789');
 
       expect(chaiHttpResponse.status).to.be.eql(401);
-      expect(chaiHttpResponse.body).to.be.eql({ message: 'You do not have permission to delete this user' });
+      expect(chaiHttpResponse.body).to.be.eql({ message: 'You do not have permission to update or delete this user' });
     });
     it('Token not found', async () => {
       chaiHttpResponse = await chai

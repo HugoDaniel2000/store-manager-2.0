@@ -58,7 +58,7 @@ describe('Update user', async () => {
           email: 'hugodaniel@gmail.com',
         });
       expect(chaiHttpResponse.status).to.be.eql(401);
-      expect(chaiHttpResponse.body).to.be.eql({ message: 'You do not have permission to update this user' });
+      expect(chaiHttpResponse.body).to.be.eql({ message: 'You do not have permission to update or delete this user' });
     });
 
     it('Email invalid format', async () => {

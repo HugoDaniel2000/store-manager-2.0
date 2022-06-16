@@ -82,7 +82,7 @@ describe('Products', async () => {
           .set('authorization', '123.456.789');
 
         expect(chaiHttpResponse.status).to.be.eql(401);
-        expect(chaiHttpResponse.body).to.be.eql({ message: 'You do not have permission to delete products' });
+        expect(chaiHttpResponse.body).to.be.eql({ message: 'You do not have permission to create, update or delete products' });
       });
     });
   });
