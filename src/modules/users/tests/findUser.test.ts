@@ -6,7 +6,7 @@ import { Response } from 'superagent';
 import { Users } from '@prisma/client';
 import { app } from '../../../index';
 import UsersRepository from '../../../repositories/implementations/usersRepository';
-import { userId } from './mocks/usersMock';
+import { users } from './mocks/usersMock';
 
 chai.use(chaiHttp);
 
@@ -19,7 +19,7 @@ describe('Find user', async () => {
   describe('Find by id user', async () => {
     describe('Find by id user success', async () => {
       beforeEach(async () => {
-        repositoryStub = sinon.stub(UsersRepository.prototype, 'findById').resolves(userId as unknown as Users);
+        repositoryStub = sinon.stub(UsersRepository.prototype, 'findById').resolves(users[2] as unknown as Users);
       });
       afterEach(() => {
         repositoryStub.restore();
@@ -29,7 +29,7 @@ describe('Find user', async () => {
           .request(app).get('/user/1')
           .send();
         expect(chaiHttpResponse.status).to.be.eql(200);
-        expect(chaiHttpResponse.body).to.be.eql(userId);
+        expect(chaiHttpResponse.body).to.be.eql(users[2]);
       });
     });
 
@@ -46,6 +46,24 @@ describe('Find user', async () => {
           .send();
         expect(chaiHttpResponse.status).to.be.eql(404);
         expect(chaiHttpResponse.body).to.be.eql({ message: 'User not found' });
+      });
+    });
+  });
+
+  describe('Find all users', async () => {
+    describe('Find all users success', async () => {
+      beforeEach(async () => {
+        repositoryStub = sinon.stub(UsersRepository.prototype, 'findById').resolves(users as unknown as Users);
+      });
+      afterEach(() => {
+        repositoryStub.restore();
+      });
+      it('return status 200', async () => {
+        chaiHttpResponse = await chai
+          .request(app).get('/user')
+          .send();
+        expect(chaiHttpResponse.status).to.be.eql(200);
+        expect(chaiHttpResponse.body).to.be.eql(users);
       });
     });
   });
