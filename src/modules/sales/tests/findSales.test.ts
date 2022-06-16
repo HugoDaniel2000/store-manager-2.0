@@ -44,10 +44,10 @@ describe('Sales', async () => {
       it('return status 404', async () => {
         chaiHttpResponse = await chai
           .request(app)
-          .get('/products/1')
+          .get('/sales/1')
           .send();
         expect(chaiHttpResponse.status).to.be.eql(404);
-        expect(chaiHttpResponse.body).to.be.eql({ message: 'Sales not found' });
+        expect(chaiHttpResponse.body).to.be.eql({ message: 'Sale not found' });
       });
     });
   });
@@ -63,7 +63,7 @@ describe('Sales', async () => {
       it('return status 200', async () => {
         chaiHttpResponse = await chai
           .request(app)
-          .get('/products');
+          .get('/sales');
 
         expect(chaiHttpResponse.status).to.be.eql(200);
         expect(chaiHttpResponse.body).to.be.eql(sales);
