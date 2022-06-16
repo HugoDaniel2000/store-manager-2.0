@@ -11,8 +11,8 @@ export default class ProductsController {
 
   async createProduct(req: Request, res: Response, next: NextFunction) {
     try {
-      const { products, user } = req.body;
-      const result = await this.productsUseCase.createProduct({ products, role: user.role });
+      const { products } = req.body;
+      const result = await this.productsUseCase.createProduct({ products });
       return res.status(StatusCodes.CREATED).json(result);
     } catch (error) {
       next(error);
@@ -22,12 +22,9 @@ export default class ProductsController {
   async updateProduct(req: Request, res: Response, next: NextFunction) {
     try {
       const { id } = req.params;
-      const roleUser = req.body.user.role;
       const { name, quantity } = req.body;
       const result = await this.productsUseCase
-        .updateProduct({
-          id: Number(id), name, quantity, role: roleUser,
-        });
+        .updateProduct({ id: Number(id), name, quantity });
       return res.status(StatusCodes.OK).json(result);
     } catch (error) {
       next(error);
@@ -37,8 +34,7 @@ export default class ProductsController {
   async deleteProduct(req: Request, res: Response, next: NextFunction) {
     try {
       const { id } = req.params;
-      const roleUser = req.body.user.role;
-      const result = await this.productsUseCase.deleteProduct({ id: Number(id), role: roleUser });
+      const result = await this.productsUseCase.deleteProduct(Number(id));
       return res.status(StatusCodes.OK).json(result);
     } catch (error) {
       next(error);

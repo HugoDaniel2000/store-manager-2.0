@@ -1,7 +1,7 @@
 import { Products } from '@prisma/client';
 import errors from 'restify-errors';
 import ProductsRepository from '../../../../repositories/implementations/productsRepository';
-import { deleteProduct, NewProduct, productUpdateParam } from '../../../../types/products';
+import { NewProduct, productUpdate } from '../../../../types/products';
 
 export default class ProductsUseCase {
   private productsRepository: ProductsRepository;
@@ -11,9 +11,6 @@ export default class ProductsUseCase {
   }
 
   async createProduct(newProduct: NewProduct): Promise<Products[]> {
-    if (newProduct.role !== 'admin') {
-      throw new errors.UnauthorizedError('You do not have permission to create products');
-    }
     const productMap = newProduct.products
       .map((product) => this.productsRepository.findByName(product.name));
     const productExist = await Promise.all(productMap).then((data) => data);
@@ -25,29 +22,21 @@ export default class ProductsUseCase {
     return Promise.all(products).then((data) => data);
   }
 
-  async updateProduct(product: productUpdateParam): Promise<Products> {
-    if (product.role !== 'admin') {
-      throw new errors.UnauthorizedError('You do not have permission to update products');
-    }
+  async updateProduct(product: productUpdate): Promise<Products> {
     const productExist = await this.productsRepository.findById(product.id);
     if (!productExist) {
       throw new errors.NotFoundError('Product not found');
     }
-    const productUpt = product;
-    delete productUpt.role;
-    const productUpdated = await this.productsRepository.update(productUpt);
+    const productUpdated = await this.productsRepository.update(product);
     return productUpdated;
   }
 
-  async deleteProduct(params: deleteProduct): Promise<object> {
-    if (params.role !== 'admin') {
-      throw new errors.UnauthorizedError('You do not have permission to delete products');
-    }
-    const productExist = await this.productsRepository.findById(params.id);
+  async deleteProduct(id: number): Promise<object> {
+    const productExist = await this.productsRepository.findById(id);
     if (!productExist) {
       throw new errors.NotFoundError('Product not found');
     }
-    await this.productsRepository.deleteById(params.id);
+    await this.productsRepository.deleteById(id);
     return { message: 'Product deleted successfully' };
   }
 }

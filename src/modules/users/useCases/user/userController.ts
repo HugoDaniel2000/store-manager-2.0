@@ -44,8 +44,7 @@ export default class UserController {
   async deleteUser(req: Request, res: Response, next: NextFunction) {
     try {
       const { id } = req.params;
-      const { user } = req.body;
-      const result = await this.userUseCase.deleteUser({ id: Number(id), user });
+      const result = await this.userUseCase.deleteUser(Number(id));
       return res.status(StatusCodes.OK).json(result);
     } catch (error) {
       next(error);

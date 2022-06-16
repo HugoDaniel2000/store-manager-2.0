@@ -3,7 +3,7 @@ import Bcrypt from '../../../../helpers/bcrypt';
 import UsersRepository from '../../../../repositories/implementations/usersRepository';
 import {
   User,
-  userCreate, userCreated, userDelete, userUpdate,
+  userCreate, userCreated, userUpdate,
 } from '../../../../types/users';
 
 export default class UserUseCase {
@@ -40,14 +40,10 @@ export default class UserUseCase {
 
   async updateUser(user: userUpdate) : Promise<userCreated> {
     const userAtt = user;
-    if (user.user?.id !== user.id && user.user?.role !== 'admin') {
-      throw new errors.UnauthorizedError('You do not have permission to update this user');
-    }
     if (userAtt.password) {
       const passwordEncrypted = await Bcrypt.encrypt(userAtt.password);
       userAtt.password = passwordEncrypted;
     }
-    delete userAtt.user;
     const {
       id, last_name: lastName, first_name: firstName, email, role,
     } = await this.userRepository.update(userAtt);
@@ -56,11 +52,8 @@ export default class UserUseCase {
     };
   }
 
-  async deleteUser(user: userDelete): Promise<object> {
-    if (user.user?.id !== user.id && user.user?.role !== 'admin') {
-      throw new errors.UnauthorizedError('You do not have permission to delete this user');
-    }
-    await this.userRepository.deleteById(user.id);
+  async deleteUser(id: number): Promise<object> {
+    await this.userRepository.deleteById(id);
     return { message: 'User successfully deleted' };
   }
 }
