@@ -36,15 +36,10 @@ export type userUpdate = {
   last_name?: string,
   email?: string,
   password?: string,
-  user?: userCreated
+  role?: string,
 }
 
 export type login = {
   email: string,
   password: string
-}
-
-export type userDelete = {
-  id: number,
-  user: userCreated
 }
