@@ -18,7 +18,7 @@ router.route('/')
   })
   .post(
     AuthMiddleware.validToken,
-    AuthMiddleware.validRoleProduct,
+    AuthMiddleware.validRoleUserAdmin,
     ProductMiddleware.validateCreateProducts,
     (req: Request, res: Response, next: NextFunction) => {
       productsController.createProduct(req, res, next);
@@ -31,7 +31,7 @@ router.route('/:id')
   })
   .put(
     AuthMiddleware.validToken,
-    AuthMiddleware.validRoleProduct,
+    AuthMiddleware.validRoleUserAdmin,
     ProductMiddleware.validateUpdateProducts,
     (req: Request, res: Response, next: NextFunction) => {
       productsController.updateProduct(req, res, next);
@@ -39,7 +39,7 @@ router.route('/:id')
   )
   .delete(
     AuthMiddleware.validToken,
-    AuthMiddleware.validRoleProduct,
+    AuthMiddleware.validRoleUserAdmin,
     (req: Request, res: Response, next: NextFunction) => {
       productsController.deleteProduct(req, res, next);
     },

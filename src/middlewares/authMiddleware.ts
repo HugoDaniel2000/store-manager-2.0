@@ -35,7 +35,7 @@ export default class AuthMiddleware {
     next();
   };
 
-  public static validRoleProduct = (req: Request, res: Response, next: NextFunction) => {
+  public static validRoleUserAdmin = (req: Request, res: Response, next: NextFunction) => {
     if (user.role !== 'admin') {
       throw new errors.UnauthorizedError('You do not have permission to create, update or delete products');
     }
