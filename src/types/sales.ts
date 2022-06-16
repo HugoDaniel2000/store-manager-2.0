@@ -12,8 +12,14 @@ export type Sales ={
   Sales_Products: salesProduct[]
 }
 
-export type newSales ={
+export type newSales = {
   user_id: number,
   product_id: number,
   quantity: number,
+}
+
+export type salesUpdate = {
+  id: number,
+  product_id?: number,
+  quantity?: number,
 }
