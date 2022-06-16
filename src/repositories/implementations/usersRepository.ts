@@ -10,7 +10,8 @@ export default class UsersRepository implements IUsersRepository {
   }
 
   async findAll(): Promise<Users[]> {
-    const users = await this.model.users.findMany();
+    const users = await this.model.users
+      .findMany({ include: { Sales_Products: true } });
     return users;
   }
 

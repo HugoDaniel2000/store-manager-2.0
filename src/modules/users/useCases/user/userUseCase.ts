@@ -18,11 +18,10 @@ export default class UserUseCase {
       throw new errors.ConflictError('Email is already being used');
     }
     const passwordEncrypted = await Bcrypt.encrypt(newUser.password);
-    const user = newUser;
-    user.password = passwordEncrypted;
+    newUser.password = passwordEncrypted;
     const {
       id, last_name: lastName, first_name: firstName, email, role,
-    } = await this.userRepository.create(user);
+    } = await this.userRepository.create(newUser);
     return {
       id, lastName, firstName, email, role,
     };

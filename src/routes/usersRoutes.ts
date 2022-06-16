@@ -15,7 +15,6 @@ const router = Router();
 
 router.route('/')
   .get(
-    AuthMiddleware.validToken,
     (req: Request, res: Response, next: NextFunction) => {
       findUserController.findAllUsers(req, res, next);
     },
