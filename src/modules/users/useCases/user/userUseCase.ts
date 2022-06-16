@@ -2,7 +2,6 @@ import errors from 'restify-errors';
 import Bcrypt from '../../../../helpers/bcrypt';
 import UsersRepository from '../../../../repositories/implementations/usersRepository';
 import {
-  User,
   userCreate, userCreated, userUpdate,
 } from '../../../../types/users';
 
@@ -11,15 +10,6 @@ export default class UserUseCase {
 
   constructor() {
     this.userRepository = new UsersRepository();
-  }
-
-  async findUserById(id: number): Promise<User> {
-    const user = await this.userRepository.findById(id) as User;
-    if (!user) {
-      throw new errors.NotFoundError('User not found');
-    }
-    delete user.password;
-    return user;
   }
 
   async createUser(newUser: userCreate): Promise<userCreated> {

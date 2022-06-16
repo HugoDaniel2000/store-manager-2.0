@@ -10,16 +10,6 @@ export default class UserController {
     this.userUseCase = new UserUseCase();
   }
 
-  async findUserById(req: Request, res: Response, next: NextFunction) {
-    try {
-      const { id } = req.params;
-      const result = await this.userUseCase.findUserById(Number(id));
-      return res.status(StatusCodes.OK).json(result);
-    } catch (error) {
-      next(error);
-    }
-  }
-
   async createUser(req: Request, res: Response, next: NextFunction) {
     try {
       const newUser: userCreate = req.body;
