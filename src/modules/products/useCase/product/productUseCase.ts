@@ -1,7 +1,7 @@
 import { Products } from '@prisma/client';
 import errors from 'restify-errors';
 import ProductsRepository from '../../../../repositories/implementations/productsRepository';
-import { NewProduct, productUpdateParam } from '../../../../types/products';
+import { deleteProduct, NewProduct, productUpdateParam } from '../../../../types/products';
 
 export default class ProductsUseCase {
   private productsRepository: ProductsRepository;
@@ -10,18 +10,19 @@ export default class ProductsUseCase {
     this.productsRepository = new ProductsRepository();
   }
 
-  async createProduct(newProduct: NewProduct): Promise<Products> {
+  async createProduct(newProduct: NewProduct): Promise<Products[]> {
     if (newProduct.role !== 'admin') {
       throw new errors.UnauthorizedError('You do not have permission to create products');
     }
-    const productExist = await this.productsRepository.findByName(newProduct.name);
-    if (productExist) {
+    const productMap = newProduct.products
+      .map((product) => this.productsRepository.findByName(product.name));
+    const productExist = await Promise.all(productMap).then((data) => data);
+    if (!productExist.includes(null)) {
       throw new errors.ConflictError('Product already exists');
     }
-    const product = newProduct;
-    delete product.role;
-    const productCreated = await this.productsRepository.create(product);
-    return productCreated;
+    const products = newProduct.products.map((product) => this.productsRepository.create(product));
+
+    return Promise.all(products).then((data) => data);
   }
 
   async updateProduct(product: productUpdateParam): Promise<Products> {
@@ -36,5 +37,17 @@ export default class ProductsUseCase {
     delete productUpt.role;
     const productUpdated = await this.productsRepository.update(productUpt);
     return productUpdated;
+  }
+
+  async deleteProduct(params: deleteProduct): Promise<object> {
+    if (params.role !== 'admin') {
+      throw new errors.UnauthorizedError('You do not have permission to delete products');
+    }
+    const productExist = await this.productsRepository.findById(params.id);
+    if (!productExist) {
+      throw new errors.NotFoundError('Product not found');
+    }
+    await this.productsRepository.deleteById(params.id);
+    return { message: 'Product deleted successfully' };
   }
 }
