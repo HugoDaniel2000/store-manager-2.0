@@ -9,6 +9,11 @@ export default class UsersRepository implements IUsersRepository {
     this.model = new PrismaClient();
   }
 
+  async findAll(): Promise<Users[]> {
+    const users = await this.model.users.findMany();
+    return users;
+  }
+
   async findByEmail(email: string): Promise<Users | null> {
     const user = await this.model.users.findUnique({ where: { email } });
     return user;
