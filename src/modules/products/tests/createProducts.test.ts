@@ -97,6 +97,36 @@ describe('Products', async () => {
         expect(chaiHttpResponse.status).to.be.eql(409);
         expect(chaiHttpResponse.body).to.be.eql({ message: 'Product already exists' });
       });
+      it('Name empty', async () => {
+        chaiHttpResponse = await chai
+          .request(app)
+          .post('/products')
+          .set('authorization', '123.456.789')
+          .send({
+            products: [{
+              name: '',
+              quantity: 10,
+            }],
+          });
+
+        expect(chaiHttpResponse.status).to.be.eql(400);
+        expect(chaiHttpResponse.body).to.be.eql({ message: 'All fields must be filled' });
+      });
+      it('Quantity less than 1', async () => {
+        chaiHttpResponse = await chai
+          .request(app)
+          .post('/products')
+          .set('authorization', '123.456.789')
+          .send({
+            products: [{
+              name: 'Vapor Max',
+              quantity: 0,
+            }],
+          });
+
+        expect(chaiHttpResponse.status).to.be.eql(400);
+        expect(chaiHttpResponse.body).to.be.eql({ message: 'Quantity must be greater than to 0' });
+      });
     });
   });
 });

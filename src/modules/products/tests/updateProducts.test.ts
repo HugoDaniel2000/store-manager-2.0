@@ -91,6 +91,32 @@ describe('Products', async () => {
         expect(chaiHttpResponse.status).to.be.eql(404);
         expect(chaiHttpResponse.body).to.be.eql({ message: 'Product not found' });
       });
+
+      it('Product name empty', async () => {
+        chaiHttpResponse = await chai
+          .request(app)
+          .put('/products/1')
+          .set('authorization', '123.456.789')
+          .send({
+            name: '',
+          });
+        console.log(chaiHttpResponse.body);
+        expect(chaiHttpResponse.status).to.be.eql(400);
+        expect(chaiHttpResponse.body).to.be.eql({ message: 'The name field must be filled' });
+      });
+
+      it('Quantiy less than 0', async () => {
+        chaiHttpResponse = await chai
+          .request(app)
+          .put('/products/1')
+          .set('authorization', '123.456.789')
+          .send({
+            quantity: -1,
+          });
+        console.log(chaiHttpResponse.body);
+        expect(chaiHttpResponse.status).to.be.eql(400);
+        expect(chaiHttpResponse.body).to.be.eql({ message: 'Quantity must be greater than or equal to 0' });
+      });
     });
   });
 });
