@@ -4,9 +4,13 @@ export type product = {
   quantity: number,
 }
 
-export type NewProduct = {
+export type productType = {
   name: string,
   quantity: number,
+}
+
+export type NewProduct = {
+  products: productType[]
   role?: string,
 }
 
@@ -21,4 +25,9 @@ export type productUpdateParam = {
   name?: string,
   quantity?: number,
   role?: string,
+}
+
+export type deleteProduct = {
+  id: number,
+  role: string,
 }
