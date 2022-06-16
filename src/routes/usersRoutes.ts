@@ -1,16 +1,25 @@
 import {
   NextFunction, Response, Request, Router,
 } from 'express';
+
+import UserController from '../modules/users/useCases/user/userController';
+import FindUserController from '../modules/users/useCases/findUser/findUserController';
+
 import AuthMiddleware from '../middlewares/authMiddleware';
 import UserCreateMiddleware from '../middlewares/userCreateMiddleware';
 import UserUpdateMiddleware from '../middlewares/userUpdateMiddleware';
 
-import UserController from '../modules/users/useCases/user/userController';
-
 const userController = new UserController();
+const findUserController = new FindUserController();
 const router = Router();
 
 router.route('/')
+  .get(
+    AuthMiddleware.validToken,
+    (req: Request, res: Response, next: NextFunction) => {
+      findUserController.findAllUsers(req, res, next);
+    },
+  )
   .post(
     UserCreateMiddleware.validateUser,
     (req: Request, res: Response, next: NextFunction) => {
@@ -20,7 +29,7 @@ router.route('/')
 
 router.route('/:id')
   .get((req: Request, res: Response, next: NextFunction) => {
-    userController.findUserById(req, res, next);
+    findUserController.findUserById(req, res, next);
   })
   .put(
     UserUpdateMiddleware.validateUser,
