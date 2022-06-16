@@ -2,6 +2,17 @@ import errors from 'restify-errors';
 import { Request, Response, NextFunction } from 'express';
 import Token from '../helpers/jwt.auth';
 
+type payloadToken = {
+  id: number,
+  firstName: string,
+  lastName: string,
+  role: string,
+  iat: number,
+  exp: number,
+}
+
+let user: payloadToken;
+
 export default class AuthMiddleware {
   public static validToken = (req: Request, res: Response, next: NextFunction) => {
     const { authorization: token } = req.headers;
@@ -12,7 +23,22 @@ export default class AuthMiddleware {
     if (!payload) {
       throw new errors.UnauthorizedError('Invalid token');
     }
-    req.body.user = payload;
+    user = payload as payloadToken;
+    next();
+  };
+
+  public static validRoleUser = (req: Request, res: Response, next: NextFunction) => {
+    const { id } = req.params;
+    if (user.id !== Number(id) && user.role !== 'admin') {
+      throw new errors.UnauthorizedError('You do not have permission to update  or delete this user');
+    }
+    next();
+  };
+
+  public static validRoleProduct = (req: Request, res: Response, next: NextFunction) => {
+    if (user.role !== 'admin') {
+      throw new errors.UnauthorizedError('You do not have permission to update  or delete this user');
+    }
     next();
   };
 }

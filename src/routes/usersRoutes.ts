@@ -25,12 +25,14 @@ router.route('/:id')
   .put(
     UserUpdateMiddleware.validateUser,
     AuthMiddleware.validToken,
+    AuthMiddleware.validRoleUser,
     (req: Request, res: Response, next: NextFunction) => {
       userController.updateUser(req, res, next);
     },
   )
   .delete(
     AuthMiddleware.validToken,
+    AuthMiddleware.validRoleUser,
     (req: Request, res: Response, next: NextFunction) => {
       userController.deleteUser(req, res, next);
     },

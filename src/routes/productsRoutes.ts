@@ -17,6 +17,7 @@ router.route('/')
   })
   .post(
     AuthMiddleware.validToken,
+    AuthMiddleware.validRoleProduct,
     (req: Request, res: Response, next: NextFunction) => {
       productsController.createProduct(req, res, next);
     },
@@ -28,12 +29,14 @@ router.route('/:id')
   })
   .put(
     AuthMiddleware.validToken,
+    AuthMiddleware.validRoleProduct,
     (req: Request, res: Response, next: NextFunction) => {
       productsController.updateProduct(req, res, next);
     },
   )
   .delete(
     AuthMiddleware.validToken,
+    AuthMiddleware.validRoleProduct,
     (req: Request, res: Response, next: NextFunction) => {
       productsController.deleteProduct(req, res, next);
     },
