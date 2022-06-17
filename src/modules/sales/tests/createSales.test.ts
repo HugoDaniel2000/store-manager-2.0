@@ -8,7 +8,7 @@ import { app } from '../../../index';
 import SalesRepository from '../../../repositories/implementations/salesRepository';
 import { sales } from './mocks/SalesMocks';
 import Token from '../../../helpers/jwt.auth';
-import { tokenPayloadAdmin } from '../../users/tests/mocks/usersMock';
+import { tokenPayload } from '../../users/tests/mocks/usersMock';
 import ProductsRepository from '../../../repositories/implementations/productsRepository';
 import { product } from '../../products/tests/mocks/productsMocks';
 
@@ -27,7 +27,7 @@ describe('Sales', async () => {
       beforeEach(async () => {
         repositoryStub = sinon.stub(SalesRepository.prototype, 'create').resolves(sales[0] as unknown as Sales);
         repositoryStub2 = sinon.stub(ProductsRepository.prototype, 'findById').resolves(product as unknown as Products);
-        tokenStub = sinon.stub(Token, 'validate').returns(tokenPayloadAdmin);
+        tokenStub = sinon.stub(Token, 'validate').returns(tokenPayload);
       });
       afterEach(() => {
         repositoryStub.restore();
@@ -59,10 +59,10 @@ describe('Sales', async () => {
       beforeEach(async () => {
         repositoryStub = sinon.stub(SalesRepository.prototype, 'create').resolves(sales[0] as unknown as Sales);
         repositoryStub2 = sinon.stub(ProductsRepository.prototype, 'findById').resolves(null);
-        tokenStub = sinon.stub(Token, 'validate').returns(tokenPayloadAdmin);
+        tokenStub = sinon.stub(Token, 'validate').returns(tokenPayload);
       });
       afterEach(() => {
-        // repositoryStub.restore();
+        repositoryStub.restore();
         repositoryStub2.restore();
         tokenStub.restore();
       });

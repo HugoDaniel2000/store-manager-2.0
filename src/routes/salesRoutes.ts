@@ -32,6 +32,12 @@ router.route('/:id')
     (req: Request, res: Response, next: NextFunction) => {
       findSalesController.findSalesById(req, res, next);
     },
+  )
+  .put(
+    AuthMiddleware.validToken,
+    (req: Request, res: Response, next: NextFunction) => {
+      salesController.updateSales(req, res, next);
+    },
   );
 
 export default router;
