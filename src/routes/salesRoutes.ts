@@ -38,6 +38,12 @@ router.route('/:id')
     (req: Request, res: Response, next: NextFunction) => {
       salesController.updateSales(req, res, next);
     },
+  )
+  .delete(
+    AuthMiddleware.validToken,
+    (req: Request, res: Response, next: NextFunction) => {
+      salesController.deleteSales(req, res, next);
+    },
   );
 
 export default router;
