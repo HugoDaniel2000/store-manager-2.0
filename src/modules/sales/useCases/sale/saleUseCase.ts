@@ -35,4 +35,13 @@ export default class SaleUseCase {
     await this.salesRepository.update(saleUpt);
     return { message: 'Sale updated successfully' };
   }
+
+  async deleteSalesById(id: number): Promise<object> {
+    const saleExist = await this.salesRepository.findById(id);
+    if (!saleExist) {
+      throw new errors.NotFoundError('Sale not found');
+    }
+    await this.salesRepository.deleteById(id);
+    return { message: 'Sale deleted successfully' };
+  }
 }

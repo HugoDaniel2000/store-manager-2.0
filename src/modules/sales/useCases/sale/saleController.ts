@@ -28,4 +28,14 @@ export default class SalesController {
       next(error);
     }
   }
+
+  async deleteSales(req: Request, res: Response, next: NextFunction) {
+    try {
+      const { id } = req.params;
+      const result = await this.saleUseCase.deleteSalesById(Number(id));
+      return res.status(StatusCodes.OK).json(result);
+    } catch (error) {
+      next(error);
+    }
+  }
 }
