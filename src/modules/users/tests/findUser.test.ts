@@ -53,7 +53,7 @@ describe('Find user', async () => {
   describe('Find all users', async () => {
     describe('Find all users success', async () => {
       beforeEach(async () => {
-        repositoryStub = sinon.stub(UsersRepository.prototype, 'findById').resolves(users as unknown as Users);
+        repositoryStub = sinon.stub(UsersRepository.prototype, 'findAll').resolves(users as unknown as Users[]);
       });
       afterEach(() => {
         repositoryStub.restore();
