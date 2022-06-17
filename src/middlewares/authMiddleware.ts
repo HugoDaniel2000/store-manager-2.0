@@ -27,6 +27,11 @@ export default class AuthMiddleware {
     next();
   };
 
+  public static getUserIdToken = (req: Request, res: Response, next: NextFunction) => {
+    req.body.id = user.id;
+    next();
+  };
+
   public static validRoleUser = (req: Request, res: Response, next: NextFunction) => {
     const { id } = req.params;
     if (user.id !== Number(id) && user.role !== 'admin') {
