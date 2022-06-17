@@ -22,17 +22,15 @@ export default class SalesRepository implements ISalesRepository {
     return sale;
   }
 
-  async create(sales: newSales[]): Promise<Sales> {
+  async create(sales: newSales): Promise<Sales> {
     const date = new Date();
     const sale = await this.model.sales.create({ data: { date } });
-    sales.forEach((newSale) => {
-      this.model.sales_Products.create({
-        data: {
-          sale_id: sale.id, ...newSale,
-        },
-      });
-    });
-
+    const salesmap = sales.sales.map((newSale) => this.model.sales_Products.create({
+      data: {
+        sale_id: sale.id, user_id: sales.user_id, ...newSale,
+      },
+    }));
+    await Promise.all(salesmap);
     const saleCreated = await this.findById(sale.id) as Sales;
     return saleCreated;
   }
