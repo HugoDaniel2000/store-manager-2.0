@@ -1,6 +1,7 @@
 const product = {
   id: 1,
   name: 'Vapor Max',
+  imageUrl: '',
   quantity: 10,
 };
 
