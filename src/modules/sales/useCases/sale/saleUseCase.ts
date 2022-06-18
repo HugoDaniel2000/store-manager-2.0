@@ -16,7 +16,7 @@ export default class SaleUseCase {
     this.productsRepository = new ProductsRepository();
   }
 
-  private async decreaseQuantityProduct(sales: salesType[]): Promise<void> {
+  async decreaseQuantityProduct(sales: salesType[]): Promise<void> {
     const salesMap = sales.map(async (sale) => {
       const prod = await this.productsRepository.findById(sale.product_id) as unknown as Products;
       const value = prod.quantity - sale.quantity;
@@ -36,13 +36,12 @@ export default class SaleUseCase {
     await Promise.all(productMap);
   }
 
-  private async productQuantityControl(sales: salesType[]): Promise<boolean> {
+  async productQuantityControl(sales: salesType[]): Promise<boolean> {
     const saleMap = sales.map(async (sale, index) => {
       const prod = await this.productsRepository.findById(sale.product_id) as unknown as Products;
       return (prod.quantity - sales[index].quantity) < 0;
     });
     const productMapResult = await Promise.all(saleMap).then((data) => data);
-    console.log(productMapResult);
     return productMapResult.some((e) => e === true);
   }
 
