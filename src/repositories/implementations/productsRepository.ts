@@ -38,6 +38,7 @@ export default class ProductsRepository implements IProductsRepository {
   }
 
   async deleteById(id: number): Promise<void> {
+    await this.model.sales_Products.deleteMany({ where: { product_id: id } });
     await this.model.products.delete({ where: { id } });
   }
 }
