@@ -38,7 +38,6 @@ describe('Sales', async () => {
           .put('/sales/1')
           .set('authorization', '123.456.789')
           .send({
-            product_id: 1,
             quantity: 2,
 
           });

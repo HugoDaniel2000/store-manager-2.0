@@ -6,6 +6,14 @@ export type salesProduct = {
   quantity: number,
 }
 
+export type salesProducts = {
+  id: number
+  user_id: number
+  sale_id: number
+  product_id: number
+  quantity: number
+}
+
 export type Sales ={
   id: number,
   date?: Date
