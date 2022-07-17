@@ -19,16 +19,6 @@ export default class SalesController {
     }
   }
 
-  async updateSales(req: Request, res: Response, next: NextFunction) {
-    try {
-      const { id } = req.params;
-      const result = await this.saleUseCase.updateSales({ id: Number(id), ...req.body });
-      return res.status(StatusCodes.OK).json(result);
-    } catch (error) {
-      next(error);
-    }
-  }
-
   async deleteSales(req: Request, res: Response, next: NextFunction) {
     try {
       const { id } = req.params;
