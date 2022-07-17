@@ -1,7 +1,0 @@
--- CreateTable
-CREATE TABLE "Sales" (
-    "id" SERIAL NOT NULL,
-    "date" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
-
-    CONSTRAINT "Sales_pkey" PRIMARY KEY ("id")
-);
