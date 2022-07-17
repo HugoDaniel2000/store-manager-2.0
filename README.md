@@ -19,13 +19,13 @@ CRUD (_Create, Read, Update_ e _Delete_).
 
 - Não há front-end neste projeto;
 
-Renomear o arquivo .env.example para .env:
-
  ## :dart: Instruções para visualizar o projeto:
 
 Como baixar o projeto
 
 Realizar o git clone: `git clone git@github.com:HugoDaniel2000/Store-manager.git`;
+
+- Renomear o arquivo .env.example para .env:
 
 - Rodar o comando: `docker-compose up -d --build`;
 
