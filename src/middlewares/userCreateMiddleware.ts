@@ -9,7 +9,7 @@ export default class UserCreateMiddleware {
       throw new errors.BadRequestError('All fields must be filled');
     }
     if (!validator.isEmail(email)) {
-      throw new errors.BadRequestError('Email must have a valid format');
+      throw new errors.BadRequestError('"email" must have a valid format');
     }
     next();
   };
@@ -31,7 +31,7 @@ export default class UserCreateMiddleware {
       throw new errors.BadRequestError('All fields must be filled');
     }
     if (firstName.length < 3) {
-      throw new errors.BadRequestError('First Name must be at least 3 characters long');
+      throw new errors.BadRequestError('"first name" must be at least 3 characters long');
     }
     next();
   };
@@ -42,7 +42,15 @@ export default class UserCreateMiddleware {
       throw new errors.BadRequestError('All fields must be filled');
     }
     if (lastName.length < 3) {
-      throw new errors.BadRequestError('Last Name must be at least 3 characters long');
+      throw new errors.BadRequestError('"last_name" must be at least 3 characters long');
+    }
+    next();
+  };
+
+  public static validRole = (req: Request, res: Response, next: NextFunction) => {
+    const { role } = req.body;
+    if (role && !['customer', 'administrator'].includes(role)) {
+      throw new errors.BadRequestError('"role" should be customer or administrator');
     }
     next();
   };
@@ -52,5 +60,6 @@ export default class UserCreateMiddleware {
     UserCreateMiddleware.validateLastName,
     UserCreateMiddleware.validatePassword,
     UserCreateMiddleware.validateFirstName,
+    UserCreateMiddleware.validRole,
   ];
 }

@@ -9,7 +9,7 @@ export default class LoginMiddleware {
       throw new errors.BadRequestError('All fields must be filled');
     }
     if (!validator.isEmail(email)) {
-      throw new errors.BadRequestError('Email must have a valid format');
+      throw new errors.BadRequestError('"email" must have a valid format');
     }
     next();
   };

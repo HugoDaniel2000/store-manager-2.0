@@ -11,7 +11,7 @@ export default class ProductMiddleware {
       }
 
       if (typeof product.name !== 'string') {
-        throw new errors.BadRequestError('The name field must be of type string');
+        throw new errors.BadRequestError('"name" field must be of type string');
       }
 
       if (!product.quantity && typeof product.quantity !== 'number') {
@@ -19,11 +19,11 @@ export default class ProductMiddleware {
       }
 
       if (typeof product.quantity !== 'number') {
-        throw new errors.BadRequestError('The name field must be of type number');
+        throw new errors.BadRequestError('"name" field must be of type number');
       }
 
       if (product.quantity < 1) {
-        throw new errors.BadRequestError('Quantity must be greater than to 0');
+        throw new errors.BadRequestError('"quantity" must be greater than to 0');
       }
     });
     next();
@@ -32,7 +32,7 @@ export default class ProductMiddleware {
   public static validateUpdateProducts = (req: Request, res: Response, next: NextFunction) => {
     const { name, quantity } = req.body;
     if (name && typeof name !== 'string') {
-      throw new errors.BadRequestError('The name field must be of type string');
+      throw new errors.BadRequestError('"name" field must be of type string');
     }
 
     if (name === '') {
@@ -40,11 +40,11 @@ export default class ProductMiddleware {
     }
 
     if (quantity && typeof quantity !== 'number') {
-      throw new errors.BadRequestError('The quantity field must be of type number');
+      throw new errors.BadRequestError('"quantity" field must be of type number');
     }
 
     if (quantity < 0) {
-      throw new errors.BadRequestError('Quantity must be greater than or equal to 0');
+      throw new errors.BadRequestError('"quantity" must be greater than or equal to 0');
     }
 
     next();

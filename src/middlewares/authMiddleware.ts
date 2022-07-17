@@ -34,14 +34,14 @@ export default class AuthMiddleware {
 
   public static validRoleUser = (req: Request, res: Response, next: NextFunction) => {
     const { id } = req.params;
-    if (user.id !== Number(id) && user.role !== 'admin') {
+    if (user.id !== Number(id) && user.role !== 'administrator') {
       throw new errors.UnauthorizedError('You do not have permission to update or delete this user');
     }
     next();
   };
 
   public static validRoleUserAdmin = (req: Request, res: Response, next: NextFunction) => {
-    if (user.role !== 'admin') {
+    if (user.role !== 'administrator') {
       throw new errors.UnauthorizedError('You do not have permission to create, update or delete products');
     }
     next();
