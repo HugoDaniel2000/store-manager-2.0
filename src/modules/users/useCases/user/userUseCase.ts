@@ -42,6 +42,11 @@ export default class UserUseCase {
   }
 
   async deleteUser(id: number): Promise<object> {
+    const user = await this.userRepository.findById(id);
+    console.log(user);
+    if (!user) {
+      throw new errors.NotFoundError('User not found');
+    }
     await this.userRepository.deleteById(id);
     return { message: 'User successfully deleted' };
   }
