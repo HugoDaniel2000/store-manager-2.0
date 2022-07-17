@@ -33,12 +33,6 @@ router.route('/:id')
       findSalesController.findSalesById(req, res, next);
     },
   )
-  .put(
-    AuthMiddleware.validToken,
-    (req: Request, res: Response, next: NextFunction) => {
-      salesController.updateSales(req, res, next);
-    },
-  )
   .delete(
     AuthMiddleware.validToken,
     (req: Request, res: Response, next: NextFunction) => {

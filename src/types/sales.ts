@@ -29,9 +29,3 @@ export type newSales = {
   user_id: number,
   sales: salesType[]
 }
-
-export type salesUpdate = {
-  id: number,
-  product_id?: number,
-  quantity?: number,
-}

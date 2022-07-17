@@ -4,7 +4,7 @@ import errors from 'restify-errors';
 import ProductsRepository from '../../../../repositories/implementations/productsRepository';
 import SalesRepository from '../../../../repositories/implementations/salesRepository';
 
-import { newSales, salesType, salesUpdate } from '../../../../types/sales';
+import { newSales, salesType } from '../../../../types/sales';
 
 export default class SaleUseCase {
   private salesRepository: SalesRepository;
@@ -58,16 +58,6 @@ export default class SaleUseCase {
     await this.decreaseQuantityProduct(sales.sales);
     const salesCreated = await this.salesRepository.create(sales);
     return salesCreated;
-  }
-
-  async updateSales(saleUpt: salesUpdate): Promise<object> {
-    const saleExist = await this.salesRepository.findById(saleUpt.id);
-    if (!saleExist) {
-      throw new errors.NotFoundError('Sale not found');
-    }
-
-    await this.salesRepository.update(saleUpt);
-    return { message: 'Sale updated successfully' };
   }
 
   async deleteSalesById(id: number): Promise<object> {

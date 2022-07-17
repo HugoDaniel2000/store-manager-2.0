@@ -1,5 +1,5 @@
 import { PrismaClient, Sales } from '@prisma/client';
-import { newSales, salesProducts, salesUpdate } from '../../types/sales';
+import { newSales, salesProducts } from '../../types/sales';
 import { ISalesRepository } from '../interfaces/ISalesRepository';
 
 export default class SalesRepository implements ISalesRepository {
@@ -38,13 +38,6 @@ export default class SalesRepository implements ISalesRepository {
     await Promise.all(salesmap);
     const saleCreated = await this.findById(sale.id) as Sales;
     return saleCreated;
-  }
-
-  async update(saleUpdt: salesUpdate): Promise<void> {
-    await this.model.sales_Products.update({
-      where: { id: saleUpdt.id },
-      data: saleUpdt,
-    });
   }
 
   async deleteById(id: number): Promise<void> {
