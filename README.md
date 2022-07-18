@@ -5,7 +5,7 @@
 
 Construir uma API :
 
-- Construir uma API utilizando conceitos POO E SOLID
+- Construir uma API utilizando alguns conceitos POO E SOLID
 - Implementar teste DE integração para aplicação 
 - Contruir uma API no padrão RESTful 
 
