@@ -25,11 +25,13 @@ Como baixar o projeto
 
 Realizar o git clone: `git clone git@github.com:HugoDaniel2000/Store-manager.git`;
 
-- Renomear o arquivo .env.example para .env:
+- Renomear o arquivo .env.example para .env;
 
-- Rodar o comando: `docker-compose up -d --build`;
+- Executar o comando: `npm run install`;
 
-- Rode os testes com `npm test:coverage` ou `npm run test:mocha`
+- Executar o comando: `docker-compose up -d --build`;
+
+- Executar os testes com `npm test:coverage` ou `npm run test:mocha`
 
 **⚠️ Atenção:**
 
