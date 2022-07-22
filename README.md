@@ -27,7 +27,7 @@ Realizar o git clone: `git clone git@github.com:HugoDaniel2000/Store-manager.git
 
 - Renomear o arquivo .env.example para .env;
 
-- Executar o comando: `npm run install`;
+- Executar o comando: `npm install`;
 
 - Executar o comando: `docker-compose up -d --build`;
 
