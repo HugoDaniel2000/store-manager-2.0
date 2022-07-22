@@ -5,8 +5,8 @@
 
 Construir uma API :
 
-- Construir uma API utilizando alguns conceitos POO E SOLID
-- Implementar teste DE integração para aplicação 
+- Construir uma API utilizando conceitos POO e alguns princípios SOLID
+- Implementar teste de integração para aplicação 
 - Contruir uma API no padrão RESTful 
 
 ## :wrench: O que foi desenvolvido 
